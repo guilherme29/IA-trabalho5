@@ -17,11 +17,13 @@ class NeuralNetwork{
 
         this.weightsIH = new Matrix(nHidden, nInput);
         this.biasH = new Matrix(nHidden, 1);
-        //falta randomizar o bias e os weights
+        biasH.randomize();
+        weightsIH.randomize();
 
         this.weightsHO = new Matrix(nOutput, nHidden);
         this.biasO = new Matrix(nOutput, 1);
-        //falta randomizar o bias e os weights
+        biasO.randomize();
+        weightsHO.randomize();
 
         this.lr = lr;
     }
