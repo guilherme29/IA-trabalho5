@@ -35,7 +35,7 @@ class NeuralNetwork{
 
         //Generating the output's output
         Matrix output = this.weightsHO.multiply(hidden);
-        output = output.add(bias0);
+        output = output.add(biasO);
         output = output.sigmoid();
 
         return output.data[0][0];
