@@ -11,9 +11,11 @@ class Matrix{
     }
 
     Matrix(double [] array) {
-        Matrix result = new Matrix(array.length,1);
+        this.rows = array.length;
+        this.cols = 1;
+        data = new double[array.length][1];
         for(int i=0; i<array.length; i++) {
-            result.data[i][0]=array[i];
+            this.data[i][0]=array[i];
         }
     }
 
@@ -38,15 +40,15 @@ class Matrix{
     }
 
     public Matrix multiply(Matrix m) {
-        if(this.cols!=m.rows) 
+        if(this.cols!=m.rows)
             throw new Error("As colunas da matriz 1 tem de ser igual as linhas da matriz 2");
-        
+
         Matrix result = new Matrix(this.rows,m.cols);
         double sum = 0;
         for(int i=0; i<result.rows; i++) {
             for(int j=0; j<result.cols; j++) {
                 sum=0;
-            
+
                 for(int k=0; k<this.cols; k++) {
                     sum += this.data[i][k] * m.data[k][j];
                 }
@@ -56,11 +58,11 @@ class Matrix{
         return result;
     }
 
-    
+
     public Matrix add(Matrix m) {
         Matrix result = new Matrix(this.rows, m.cols);
-        
-        if(this.rows != m.rows || this.cols != m.cols) 
+
+        if(this.rows != m.rows || this.cols != m.cols)
             throw new Error("As colunas e as linhas têm de ser iguais entre as duas matrizes");
         else {
             for(int i=0; i<result.rows; i++) {
@@ -74,7 +76,7 @@ class Matrix{
 
     public Matrix subtract(Matrix m) {
         Matrix result = new Matrix(this.rows, this.cols);
-        
+
         if(this.rows != m.rows || this.cols != m.cols)
             throw new Error("As colunas e as linhas têm de ser iguais entre as duas matrizes");
         else {
@@ -107,14 +109,14 @@ class Matrix{
         return result;
     }
 
-    /*public static void print(Matrix m){
-        for (int i=0; i<m.rows; i++){
-          for (int j=0; j<m.cols; j++) {
-            System.out.print(m.data[i][j] + " ");
+    public void print(){
+        for (int i=0; i<this.rows; i++){
+          for (int j=0; j<this.cols; j++) {
+            System.out.print(this.data[i][j] + " ");
           }
           System.out.println();
         }
         System.out.println();
-      }*/
-   
+      }
+
 }
