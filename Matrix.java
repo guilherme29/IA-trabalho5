@@ -10,6 +10,13 @@ class Matrix{
         data = new double[rows][cols];
     }
 
+    Matrix(double [] array) {
+        Matrix result = new Matrix(array.length,1);
+        for(int i=0; i<array.length; i++) {
+            result.data[i][0]=array[i];
+        }
+    }
+
     public Matrix copy(Matrix m){
         Matrix result = new Matrix(this.rows,this.cols);
         for(int i=0; i<this.rows; i++){
@@ -90,7 +97,17 @@ class Matrix{
         return;
     }
 
-    public static void print(Matrix m){
+    public Matrix transpose() {
+        Matrix result = new Matrix(this.cols,this.rows);
+        for(int i=0; i<this.rows; i++) {
+            for(int j=0; j<this.cols; j++) {
+                result.data[j][i] = this.data[i][j];
+            }
+        }
+        return result;
+    }
+
+    /*public static void print(Matrix m){
         for (int i=0; i<m.rows; i++){
           for (int j=0; j<m.cols; j++) {
             System.out.print(m.data[i][j] + " ");
@@ -98,6 +115,6 @@ class Matrix{
           System.out.println();
         }
         System.out.println();
-      }
+      }*/
    
 }
