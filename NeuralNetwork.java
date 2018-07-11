@@ -45,21 +45,53 @@ class NeuralNetwork{
     }
 
     public void train(double[] inputArray, double target){
-        double output = feedForward(inputs);
-        Matrix outputM = Matrix(1,1);
-        outputM.data[0][0] = output;
+        Matrix inputs = new Matrix(inputArray);
+
+        Matrix hidden = this.weightsIH.multiply(inputs);
+        hidden = hidden.add(biasH);
+        hidden = hidden.sigmoid();
+
+        //Generating the output's output
+        Matrix output = this.weightsHO.multiply(hidden);
+        output = output.add(biasO);
+        output = output.sigmoid();
+
 
         //calculate the error (error = target - output)
-        double error = target - output;
+        double error = target - output.data[0][0];
         Matrix outputErrors = new Matrix(1,1);
         outputErrors.data[0][0] = error;
 
+        //calculate the gradient
+        Matrix gradients = output.dsigmoid();
+        gradients = gradients.hadamard(outputErrors);
+        gradients = gradients.hadamard(this.lr);
 
+        //calculate the deltas
+        Matrix hiddenT = hidden.transpose();
+        Matrix weightsHOD = gradients.multiply(hiddenT);
+
+        //adjust the weights by deltas
+        this.weightsHO = weightsHO.add(weightsHOD);
+        this.biasO = this.biasO.add(gradients);
 
         //calculate the hidden errors
         //se houvessem mais layers hidden haveria aqui um loop
         Matrix weightsHOT = this.weightsHO.transpose();
         Matrix hiddenErrors = weightsHOT.multiply(outputErrors);
+
+        //calculate hidden gradient
+        Matrix hiddenG = hidden.dsigmoid();
+        hiddenG = hiddenG.hadamard(hiddenErrors);
+        hiddenG = hiddenG.hadamard(lr);
+
+        //calculate input-hidden deltas
+        Matrix inputsT = inputs.transpose();
+        Matrix weightIHD = hiddenG.multiply(inputsT);
+
+        //adjust the weights by deltas
+        this.weightsIH = this.weightsIH.add(weightIHD);
+        this.biasH = this.biasH.add(hiddenG);
 
 
         //1 - transformar o input numa matriz
@@ -72,6 +104,4 @@ class NeuralNetwork{
 
         //8 - (criar outputErrors)
     }
-
-
 }
