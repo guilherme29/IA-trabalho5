@@ -81,7 +81,15 @@ class Matrix{
         }
         return result;
     }
-
+    public Matrix hadamard(double n){
+        Matrix result = new Matrix(this.rows, this.cols);
+        for(int i=0;i<result.rows;i++){
+            for(int j=0;j<result.cols;j++){
+                result.data[i][j] = this.data[i][j]*n;
+            }
+        }
+        return result;
+    }
 
     public Matrix add(Matrix m) {
         Matrix result = new Matrix(this.rows, m.cols);
