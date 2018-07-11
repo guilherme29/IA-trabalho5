@@ -94,14 +94,5 @@ class NeuralNetwork{
         this.biasH = this.biasH.add(hiddenG);
 
 
-        //1 - transformar o input numa matriz
-        //2 - (criar a matriz hidden) multiplicar matriz weightsIH pelos inputs
-        //3 - somar biasH à hidden
-        //4 - passar a hidden pelo sigmoid
-        //5 - (criar output) multiplicar o hidden pelos weightsHO
-        //6 - somar a biasO a output
-        //7 - passar a output pelo sigmoid
-
-        //8 - (criar outputErrors)
     }
 }
