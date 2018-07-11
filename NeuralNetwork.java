@@ -45,6 +45,23 @@ class NeuralNetwork{
     }
 
     public void train(double[] inputArray, double target){
+        double output = feedForward(inputs);
+        Matrix outputM = Matrix(1,1);
+        outputM.data[0][0] = output;
+
+        //calculate the error (error = target - output)
+        double error = target - output;
+        Matrix outputErrors = new Matrix(1,1);
+        outputErrors.data[0][0] = error;
+
+
+
+        //calculate the hidden errors
+        //se houvessem mais layers hidden haveria aqui um loop
+        Matrix weightsHOT = this.weightsHO.transpose();
+        Matrix hiddenErrors = weightsHOT.multiply(outputErrors);
+
+
         //1 - transformar o input numa matriz
         //2 - (criar a matriz hidden) multiplicar matriz weightsIH pelos inputs
         //3 - somar biasH à hidden
