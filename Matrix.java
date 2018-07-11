@@ -39,6 +39,20 @@ class Matrix{
         return result;
     }
 
+    public Matrix dsigmoid(){
+        //esta função calcula a derivada da sigmoid que é sigmoid(x)*(1-sigmoid(x))
+        //esta função supõe que a sigmoid já foi aplicada logo
+        Matrix aux = new Matrix(this.rows,this.cols);
+        for(int i=0;i<aux.rows;i++){
+            for(int j=0;j<aux.cols;j++){
+                aux.data[i][j] = 1;
+            }
+        }
+        aux = aux.subtract(this);
+        return this.multiply(aux);
+    }
+
+
     public Matrix multiply(Matrix m) {
         if(this.cols!=m.rows)
             throw new Error("As colunas da matriz 1 tem de ser igual as linhas da matriz 2");
@@ -53,6 +67,16 @@ class Matrix{
                     sum += this.data[i][k] * m.data[k][j];
                 }
                 result.data[i][j] = sum;
+            }
+        }
+        return result;
+    }
+
+    public Matrix hadamard(Matrix m){
+        Matrix result = new Matrix(this.rows, this.cols);
+        for(int i=0;i<result.rows;i++){
+            for(int j=0;j<result.cols;j++){
+                result.data[i][j] = this.data[i][j]*m.data[i][j];
             }
         }
         return result;
