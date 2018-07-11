@@ -143,12 +143,11 @@ class Matrix{
 
     public void print(){
         for (int i=0; i<this.rows; i++){
-          for (int j=0; j<this.cols; j++) {
-            System.out.print(this.data[i][j] + " ");
-          }
-          System.out.println();
+            for (int j=0; j<this.cols; j++) {
+                System.out.print(this.data[i][j] + " ");
+            }
+            System.out.println();
         }
-        System.out.println();
-      }
+    }
 
 }
