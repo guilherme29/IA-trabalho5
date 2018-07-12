@@ -47,14 +47,15 @@ class NeuralNetwork{
     public void train(double[] inputArray, double target){
         Matrix inputs = new Matrix(inputArray);
 
+        //Generating the hidden outputs
         Matrix hidden = this.weightsIH.multiply(inputs);
         hidden = hidden.add(biasH);
-        hidden = hidden.sigmoid();
+        hidden = hidden.sigmoid(); //função de ativação
 
         //Generating the output's output
         Matrix output = this.weightsHO.multiply(hidden);
         output = output.add(biasO);
-        output = output.sigmoid();
+        output = output.sigmoid(); //função de ativação
 
 
         //calculate the error (error = target - output)
