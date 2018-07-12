@@ -42,14 +42,13 @@ class Matrix{
     public Matrix dsigmoid(){
         //esta função calcula a derivada da sigmoid que é sigmoid(x)*(1-sigmoid(x))
         //esta função supõe que a sigmoid já foi aplicada logo
-        Matrix aux = new Matrix(this.rows,this.cols);
-        for(int i=0;i<aux.rows;i++){
-            for(int j=0;j<aux.cols;j++){
-                aux.data[i][j] = 1;
+        Matrix result = new Matrix(this.rows, this.cols);
+        for(int i=0; i<this.rows; i++){
+            for(int j=0; j<this.cols; j++){
+                result.data[i][j] = this.data[i][j]*(1 - this.data[i][j]);
             }
         }
-        aux = aux.subtract(this);
-        return this.multiply(aux);
+        return result;
     }
 
 
