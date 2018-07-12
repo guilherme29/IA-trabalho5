@@ -2,13 +2,14 @@ import java.util.Random;
 
 class Test{
     public static void main(String[] args) {
-        NeuralNetwork brain = new NeuralNetwork(4,4,1, 0.15);
 
+        double lr = 0.05;
+        NeuralNetwork brain = new NeuralNetwork(4,4,1, lr);
 
-
-//        for(int i=0;i<50000;i++){ //construção de vetores de treino
+        //for(int i=0;i<50000;i++){ //construção de vetores de treino
 
         double difEven = 1, difOdd = 1;
+        double iterations = 0; //para saber quantas vezes foi preciso para treinar a rede
         while(difEven > 0.05 && difOdd > 0.05){//treinar até o erro ser baixinho
 
             //construção de vetores de treino
@@ -43,6 +44,7 @@ class Test{
             input[3]=1;
             inputM = new Matrix(input);
             difEven = brain.feedForward(inputM);
+            iterations++;
 
         }
 
@@ -58,8 +60,9 @@ class Test{
             System.out.printf("%.0f,%.0f,%.0f,%.0f -- >",test[0],test[1],test[2],test[3]);
             System.out.printf("%.02f",brain.feedForward(testM));
             System.out.println();
-
         }
+        System.out.println("learning rate:" + lr);
+        System.out.println("iterations: " + iterations);
     }
 
     private static double random(){
